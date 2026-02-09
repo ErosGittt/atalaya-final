@@ -556,7 +556,7 @@ header
   }
   .header-area .main-nav .nav li:last-child a:hover,
   .header-area .main-nav .nav li:last-child:hover a {
-    background-color: #ed563b!important;
+    background-color: green!important;
     color: #fff!important;
   }
   .header-area.header-sticky .nav {
@@ -1250,7 +1250,21 @@ responsive
     margin-bottom: 110px;
   }
   #features .feature-item {
+    display: flex !important;
+    align-items: flex-start;
+    gap: 20px;
+    text-align: left;
     margin-bottom: 30px;
+  }
+  #features .feature-item .left-icon img {
+    width: 80px !important; /* Ajusta este tamaño a tu gusto */
+    max-width: none !important;
+  }
+
+  /* Asegura que el texto use el espacio restante */
+  #features .feature-item .right-content {
+    flex: 1;
+    margin-top: 0 !important;
   }
   #our-classes .tabs-content {
     margin-left: 0px;
