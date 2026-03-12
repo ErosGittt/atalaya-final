@@ -1,6 +1,8 @@
-/* --- CONFIGURACIÓN GENERAL --- */
+/* ==========================================
+   1. CONFIGURACIÓN GENERAL Y TIPOGRAFÍA
+   ========================================== */
 body {
-    background-color: #f4f7f6; /* Gris muy claro de fondo para resaltar las secciones */
+    background-color: #f4f7f6; /* Gris muy claro de fondo */
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: #333;
 }
@@ -12,12 +14,25 @@ h1, h2 {
     letter-spacing: -0.5px;
 }
 
+/* Énfasis en verde para títulos */
 h1 em, h2 em {
     font-style: normal;
     color: #2e7d32; /* Verde Atalaya */
 }
 
-/* --- NAVBAR PERSONALIZADA --- */
+/* Animación de entrada para las secciones */
+.admin-section {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   2. NAVBAR (BARRA DE NAVEGACIÓN)
+   ========================================== */
 .navbar {
     border-bottom: 3px solid #2e7d32;
 }
@@ -25,6 +40,10 @@ h1 em, h2 em {
 .navbar-brand {
     font-weight: 800;
     letter-spacing: 1px;
+}
+
+.navbar-collapse {
+    justify-content: space-between;
 }
 
 .nav-link {
@@ -36,17 +55,18 @@ h1 em, h2 em {
     color: #2e7d32 !important;
 }
 
-/* --- SECCIONES --- */
-.admin-section {
-    animation: fadeIn 0.5s ease-in-out;
+/* Alineación de elementos en la navbar */
+.d-flex.align-items-center {
+    margin-left: auto;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.btn-outline-light {
+    margin-right: 10px;
 }
 
-/* --- TARJETAS Y CONTENEDORES --- */
+/* ==========================================
+   3. CONTENEDORES Y TARJETAS
+   ========================================== */
 .table-container, .form-container {
     background: #ffffff;
     border-radius: 15px;
@@ -54,7 +74,9 @@ h1 em, h2 em {
     overflow: hidden;
 }
 
-/* --- TABLA DE INSCRIPTOS --- */
+/* ==========================================
+   4. TABLAS (INSCRIPTOS Y GENERAL)
+   ========================================== */
 .table thead th {
     background-color: #1a1a1a;
     color: #ffffff;
@@ -70,18 +92,54 @@ h1 em, h2 em {
     border-color: #f0f0f0;
 }
 
-.wa-link {
-    color: #25d366; /* Verde WhatsApp */
-    text-decoration: none;
+/* Efecto hover en filas de tablas */
+#tabla-inscritos tr {
+    transition: background-color 0.2s;
+}
+
+#tabla-inscritos tr:hover {
+    background-color: rgba(46, 125, 50, 0.05); /* Verde sutil */
+}
+
+/* ==========================================
+   5. FORMULARIOS Y BUSCADOR
+   ========================================== */
+label {
     font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
 }
 
-.wa-link:hover {
-    text-decoration: underline;
-    color: #128c7e;
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* --- BOTONES --- */
+.form-control:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+}
+
+/* Buscador específico */
+.search-container #inputBusqueda {
+    border: 2px solid #2e7d32;
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-container #inputBusqueda:focus {
+    box-shadow: 0 0 15px rgba(46, 125, 50, 0.2);
+    border-color: #1b5e20;
+    outline: none;
+}
+
+/* ==========================================
+   6. BOTONES Y ACCIONES
+   ========================================== */
 .btn-success {
     background-color: #2e7d32;
     border: none;
@@ -108,146 +166,199 @@ h1 em, h2 em {
     transform: scale(1.05);
 }
 
-/* --- FORMULARIOS --- */
-label {
-    font-weight: 600;
-    color: #444;
-    margin-bottom: 8px;
-}
-
-.form-control {
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    padding: 10px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-control:focus {
-    border-color: #2e7d32;
-    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
-}
-
-
-
-
-/* Ajuste para que los botones de acción se vayan a la derecha */
-.navbar-collapse {
-    justify-content: space-between;
-}
-
-.d-flex.align-items-center {
-    margin-left: auto; /* Empuje extra hacia la derecha */
-}
-
-/* Espaciado para que no se peguen los botones entre sí */
-.btn-outline-light {
-    margin-right: 10px;
-}
-
-/* Estilos específicos para el Carrusel */
-#form-carrusel .form-label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #555;
-}
-
-.badge-tipo {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.bg-resultado { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-.bg-proximo { background-color: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
-
 .btn-sm-delete {
     padding: 4px 8px;
     font-size: 0.8rem;
 }
 
-#tabla-inscritos tr {
-    transition: background-color 0.2s;
+/* Enlaces de WhatsApp */
+.wa-link {
+    color: #25d366;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-#tabla-inscritos tr:hover {
-    background-color: rgba(46, 125, 50, 0.05); /* Un verde muy sutil al pasar el mouse */
+.wa-link:hover {
+    text-decoration: underline;
+    color: #128c7e;
 }
 
-/* --- RESPONSIVE PANEL ADMIN (REDISEÑO TOTAL) --- */
+/* ==========================================
+   7. COMPONENTES ESPECÍFICOS DEL CARRUSEL
+   ========================================== */
+
+/* Contenedor principal del formulario para evitar amontonamientos */
+#form-carrusel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Espacio uniforme entre elementos */
+    align-items: flex-end; /* Alinea los inputs con el botón */
+}
+
+/* Ajuste de los grupos de control (Label + Input) */
+#form-carrusel .col-md-3, 
+#form-carrusel .col-md-4, 
+#form-carrusel .col-md-6,
+#form-carrusel .col-md-2 {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Etiquetas del formulario */
+#form-carrusel .form-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #2e7d32; /* Verde Atalaya para identificar el campo */
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+/* Inputs y Selects: Forzamos el ancho y el estilo */
+#form-carrusel .form-control, 
+#form-carrusel .form-select {
+    width: 100%;
+    height: 45px; /* Altura uniforme para todos */
+    border: 1.5px solid #ced4da;
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+/* --- ESTILOS DE LA TABLA DEL CARRUSEL --- */
+#tabla-carrusel td {
+    font-size: 0.9rem;
+    padding: 15px 10px;
+}
+
+/* Badges de estado modernos (Tipo píldora) */
+.badge-tipo {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
+    min-width: 120px; /* Asegura que todos los badges midan lo mismo */
+}
+
+.bg-resultado { 
+    background-color: #e8f5e9; 
+    color: #2e7d32; 
+    border: 1px solid #2e7d32; 
+}
+
+.bg-proximo { 
+    background-color: #e3f2fd; 
+    color: #1565c0; 
+    border: 1px solid #1565c0; 
+}
+
+/* Botón Publicar: Para que destaque y no se mueva */
+#form-carrusel .btn-success {
+    height: 45px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(46, 125, 50, 0.2);
+}
+
+/* --- CONFIGURACIÓN RESPONSIVE PANEL ADMIN (MODO TABLA OSCURA) --- */
+
 @media (max-width: 768px) {
-    /* 1. Ajuste de Títulos y Espaciado */
-    h1, h2 { font-size: 1.5rem; text-align: center; }
-    .container { padding: 10px; }
-
-    /* 2. Transformar Tablas en Tarjetas (Cards) */
-    .table thead {
-        display: none; /* Escondemos los encabezados que confunden */
+    /* 1. Ajustes de Títulos y Contenedores */
+    h1, h2 { 
+        font-size: 1.4rem !important; 
+        text-align: center; 
+        margin-bottom: 15px;
     }
 
-    .table, .table tbody, .table tr, .table td {
-        display: block;
-        width: 100%;
+    .container { 
+        padding: 8px !important; 
+    }
+
+    .search-container {
+        margin: 10px 5px 20px 5px;
+    }
+
+    /* 2. Contenedor de la Tabla (Scroll Lateral Elegante) */
+    .table-container, .table-responsive {
+        background-color: #1a1a1a !important; /* Fondo oscuro Atalaya */
+        padding: 12px;
+        border-radius: 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 25px;
+    }
+
+    /* 3. Estructura de Tabla (Forzamos visualización de filas) */
+    .table {
+        min-width: 750px; /* Evita que los datos se amontonen al editar */
+        display: table !important;
+        background-color: transparent !important;
+        border-collapse: collapse !important;
+    }
+
+    .table thead {
+        display: table-header-group !important; /* Mostramos los días/títulos */
     }
 
     .table tr {
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        background: #fff;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        padding: 10px;
+        display: table-row !important;
     }
 
-    .table td {
-        text-align: right; /* El dato a la derecha */
-        padding: 8px 10px;
-        border: none;
-        border-bottom: 1px solid #f0f0f0;
-        display: flex;
-        justify-content: space-between; /* Etiqueta a la izq, dato a la der */
-        align-items: center;
-        font-size: 0.9rem;
+    .table td, .table th {
+        display: table-cell !important;
+        text-align: center !important;
+        padding: 10px 8px !important;
+        font-size: 0.8rem !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        color: #ffffff !important;
+        vertical-align: middle;
     }
 
-    /* Inyectamos títulos para que sepas qué es cada dato */
-    /* Para la tabla de partidos/carrusel */
-    #lista-partidos-carrusel td:nth-of-type(1):before { content: "Torneo:"; font-weight: 700; color: #666; }
-    #lista-partidos-carrusel td:nth-of-type(2):before { content: "Equipos:"; font-weight: 700; color: #666; }
-    #lista-partidos-carrusel td:nth-of-type(3):before { content: "Estado:"; font-weight: 700; color: #666; }
-    #lista-partidos-carrusel td:nth-of-type(4):before { content: "Acciones:"; font-weight: 700; color: #666; }
-
-    /* Para la tabla de inscriptos */
-    #tabla-inscritos td:nth-of-type(1):before { content: "Nombre:"; font-weight: 700; color: #666; }
-    #tabla-inscritos td:nth-of-type(2):before { content: "DNI/Cat:"; font-weight: 700; color: #666; }
-    #tabla-inscritos td:nth-of-type(3):before { content: "WhatsApp:"; font-weight: 700; color: #666; }
-    #tabla-inscritos td:nth-of-type(4):before { content: "Acción:"; font-weight: 700; color: #666; }
-
-    .table td:last-child {
-        border-bottom: none;
-        justify-content: center;
-        padding-top: 15px;
+    /* 4. Columna Fija (Categoría) para no perderse al scrollear */
+    .table td:first-child, .table th:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 10;
+        background-color: #222 !important; /* Gris oscuro para legibilidad */
+        border-right: 2px solid #2e7d32 !important; /* Verde Atalaya */
+        font-weight: bold;
     }
 
-    /* 3. Botones más fáciles de tocar con el dedo */
-    .btn-sm-delete, .btn-delete {
-        width: 100%;
-        padding: 12px;
-        font-size: 1rem;
+    /* 5. Celdas Editables (Feedback visual de edición) */
+    .editable-cell {
+        background-color: rgba(255, 255, 255, 0.05);
+        cursor: text;
+        transition: all 0.2s ease;
+    }
+
+    .editable-cell:focus {
+        background-color: rgba(46, 125, 50, 0.3) !important; /* Verde al escribir */
+        outline: 2px solid #2e7d32;
+        color: #fff !important;
+    }
+
+    /* 6. Botones y Links adaptados */
+    .btn-delete, .btn-sm-delete {
+        width: auto !important;
+        padding: 5px 12px !important;
+        font-size: 0.75rem !important;
+        display: inline-block;
     }
 
     .wa-link {
-        background: #25d366;
-        color: white !important;
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 0.8rem;
+        color: #25d366 !important;
+        background: transparent !important;
+        font-weight: bold;
+        padding: 0;
+        font-size: 0.85rem;
     }
 
-    /* 4. Formulario de carga */
+    /* 7. Formulario de carga (debajo de las tablas) */
     .form-container {
-        padding: 20px;
+        padding: 15px;
         margin-bottom: 30px;
+        background: #fff; /* El formulario puede quedar claro o ajustalo a oscuro */
+        border-radius: 12px;
     }
 }
