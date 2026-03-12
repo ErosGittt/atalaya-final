@@ -263,43 +263,54 @@ label {
 }
 
 /* ==========================================
-   8. CORRECCIÓN DE TABLA DE HORARIOS (DARK MODE)
+   8. SOLUCIÓN FINAL: CONTRASTE DE HORARIOS
    ========================================== */
 
-/* Forzamos el contenedor para que sea oscuro */
+/* 1. Forzamos un contenedor oscuro sólido detrás de la tabla */
 #sec-horarios .table-container {
-    background-color: #1a1a1a !important; /* El color oscuro de Atalaya */
-    border-radius: 15px;
+    background-color: #1a1a1a !important; /* Gris oscuro Atalaya */
     padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #2e7d32; /* Borde verde para definir el área */
+    margin-top: 20px;
 }
 
-/* Forzamos a la tabla y sus celdas a no tener fondo blanco */
-#sec-horarios table, 
-#sec-horarios thead th, 
-#sec-horarios tbody td {
-    background-color: transparent !important;
-    color: #ffffff !important; /* Texto blanco para que se lea */
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+/* 2. Aseguramos que la tabla NO sea transparente y use fondo oscuro */
+#sec-horarios table {
+    background-color: #1a1a1a !important;
+    border-collapse: collapse;
+    width: 100%;
 }
 
-/* Estilo para los encabezados de Categoría y Días */
+/* 3. Forzamos el texto a blanco y bordes visibles */
+#sec-horarios td {
+    color: #ffffff !important; /* Texto blanco puro */
+    background-color: rgba(255, 255, 255, 0.05) !important; /* Fondo apenas gris para ver la celda */
+    border: 1px solid #444 !important; /* Bordes internos visibles */
+    padding: 12px;
+    text-align: center;
+}
+
+/* 4. Cabeceras en Verde Atalaya (Lunes, Martes, etc.) */
 #sec-horarios thead th {
-    background-color: #2e7d32 !important; /* Verde Atalaya para el cabezal */
-    font-weight: 800;
-    text-transform: uppercase;
+    background-color: #2e7d32 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+    border: 1px solid #1b5e20 !important;
 }
 
-/* Ajuste para que las celdas editables se vean bien al cliquear */
-#sec-horarios td[contenteditable="true"]:focus {
-    background-color: rgba(46, 125, 50, 0.2) !important;
-    outline: 2px solid #2e7d32;
-    color: #fff !important;
-}
-
-/* Primera columna (Categorías) siempre resaltada */
+/* 5. Columna de Categorías (SUB 16, etc.) con resalte */
 #sec-horarios tbody td:first-child {
-    background-color: rgba(46, 125, 50, 0.1) !important;
-    font-weight: 700;
+    background-color: #262626 !important;
+    font-weight: bold;
+    color: #2e7d32 !important; /* Nombre de categoría en verde */
+    text-align: left;
+}
+
+/* 6. Al hacer clic para editar, que cambie de color */
+#sec-horarios td[contenteditable="true"]:focus {
+    background-color: #333 !important;
+    outline: 2px solid #2e7d32;
 }
 
 /* --- CONFIGURACIÓN RESPONSIVE PANEL ADMIN (MODO TABLA OSCURA) --- */
