@@ -258,6 +258,48 @@ label {
     font-weight: 800;
     letter-spacing: 1px;
     box-shadow: 0 4px 6px rgba(46, 125, 50, 0.2);
+
+
+}
+
+/* ==========================================
+   8. CORRECCIÓN DE TABLA DE HORARIOS (DARK MODE)
+   ========================================== */
+
+/* Forzamos el contenedor para que sea oscuro */
+#sec-horarios .table-container {
+    background-color: #1a1a1a !important; /* El color oscuro de Atalaya */
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* Forzamos a la tabla y sus celdas a no tener fondo blanco */
+#sec-horarios table, 
+#sec-horarios thead th, 
+#sec-horarios tbody td {
+    background-color: transparent !important;
+    color: #ffffff !important; /* Texto blanco para que se lea */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Estilo para los encabezados de Categoría y Días */
+#sec-horarios thead th {
+    background-color: #2e7d32 !important; /* Verde Atalaya para el cabezal */
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Ajuste para que las celdas editables se vean bien al cliquear */
+#sec-horarios td[contenteditable="true"]:focus {
+    background-color: rgba(46, 125, 50, 0.2) !important;
+    outline: 2px solid #2e7d32;
+    color: #fff !important;
+}
+
+/* Primera columna (Categorías) siempre resaltada */
+#sec-horarios tbody td:first-child {
+    background-color: rgba(46, 125, 50, 0.1) !important;
+    font-weight: 700;
 }
 
 /* --- CONFIGURACIÓN RESPONSIVE PANEL ADMIN (MODO TABLA OSCURA) --- */
