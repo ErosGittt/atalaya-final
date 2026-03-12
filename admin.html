@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Atalaya Voley</title>
+    
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/admin-styles.css">
+    <style>
+        .admin-section { padding-top: 20px; }
+        .nav-link { cursor: pointer; font-weight: 500; }
+        .navbar-brand em { color: #2e7d32; font-style: normal; font-weight: bold; }
+        .nav-link.active { border-bottom: 2px solid #2e7d32; color: #fff !important; }
+
+        /* Estilos para la tabla editable */
+        .editable-cell {
+            background-color: #f9f9f9;
+            cursor: text;
+            transition: all 0.3s;
+            border: 1px solid #dee2e6 !important;
+            color: #333 !important;
+            font-size: 13px;
+            min-width: 100px;
+        }
+        .editable-cell:focus {
+            background-color: #fff;
+            outline: 2px solid #2e7d32;
+            box-shadow: 0 0 5px rgba(46,125,50,0.5);
+        }
+        .day-time-label {
+            background-color: #2e7d32 !important;
+            color: white !important;
+            font-weight: bold;
+        }
+        .saving-loader {
+            font-size: 0.8rem;
+            color: #2e7d32;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">ATALAYA <em>ADMIN</em></a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="verSeccion('sec-inscriptos', this)">Inscriptos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="verSeccion('sec-horarios', this)">Horarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="verSeccion('sec-carrusel', this)">Carrusel</a>
+                </li>
+            </ul>
+            
+            <div class="d-flex align-items-center">
+                <a href="index.html" class="btn btn-outline-light btn-sm me-2">
+                    Volver al Sitio Web
+                </a>
+                <button onclick="cerrarSesion()" class="btn btn-outline-danger btn-sm">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <div class="container">
+        <section id="sec-inscriptos" class="admin-section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Panel de <em>Inscriptos</em></h1>
+                    <p>Gestión de nuevos jugadores.</p>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 table-container shadow-sm p-3 bg-white rounded">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Altura</th>
+                                <th>Género</th>
+                                <th>Posición</th>
+                                <th>WhatsApp</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-inscritos"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-horarios" class="admin-section" style="display: none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Editar <em>Horarios Directamente</em> <span id="save-status" class="saving-loader">Guardando...</span></h2>
+                    <p>Haz clic en cualquier celda para escribir el nuevo horario. Se guarda automáticamente al salir de la celda.</p>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center" id="admin-schedule-table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 15%;">Categoría</th>
+                                    <th>Lunes</th>
+                                    <th>Martes</th>
+                                    <th>Miércoles</th>
+                                    <th>Jueves</th>
+                                    <th>Viernes</th>
+                                    <th>Profe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-category="SUB 16">
+                                    <td class="day-time-label">SUB 16</td>
+                                    <td class="editable-cell" data-day="lunes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="martes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="miercoles" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="jueves" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="viernes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="profe" contenteditable="true" style="font-weight: bold; color: #2e7d32 !important;"></td>
+                                </tr>
+                                <tr data-category="SUB 18">
+                                    <td class="day-time-label">SUB 18</td>
+                                    <td class="editable-cell" data-day="lunes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="martes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="miercoles" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="jueves" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="viernes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="profe" contenteditable="true" style="font-weight: bold; color: #2e7d32 !important;"></td>
+                                </tr>
+                                <tr data-category="SUB 21">
+                                    <td class="day-time-label">SUB 21</td>
+                                    <td class="editable-cell" data-day="lunes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="martes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="miercoles" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="jueves" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="viernes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="profe" contenteditable="true" style="font-weight: bold; color: #2e7d32 !important;"></td>
+                                </tr>
+                                <tr data-category="MAYORES">
+                                    <td class="day-time-label">MAYORES</td>
+                                    <td class="editable-cell" data-day="lunes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="martes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="miercoles" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="jueves" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="viernes" contenteditable="true"></td>
+                                    <td class="editable-cell" data-day="profe" contenteditable="true" style="font-weight: bold; color: #2e7d32 !important;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="sec-carrusel" class="admin-section" style="display: none;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Gestión del <em>Carrusel</em></h1>
+                    <p>Cargá los resultados de los partidos jugados o anunciá los que se vienen.</p>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-12">
+                    <div class="table-container shadow-sm p-4 bg-white rounded">
+                        <h5 class="mb-3">Nueva Placa de Partido</h5>
+                        <form id="form-carrusel" class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Situación</label>
+                                <select id="partido-tipo" class="form-select">
+                                    <option value="RESULTADO">ÚLTIMO RESULTADO</option>
+                                    <option value="PRÓXIMO">PRÓXIMO PARTIDO</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Nombre del Torneo</label>
+                                <input type="text" id="partido-torneo" class="form-control" placeholder="Ej: Liga Matancera" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Fase del Torneo</label>
+                                <input type="text" id="partido-fase" class="form-control" placeholder="Ej: Semifinales" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Categoría</label>
+                                <select id="partido-categoria" class="form-select" required>
+                                    <option value="Sub 16 Fem">Sub 16 Fem</option>
+                                    <option value="Sub 18 Fem">Sub 18 Fem</option>
+                                    <option value="Sub 21 Fem">Sub 21 Fem</option>
+                                    <option value="Sub 16 Masc">Sub 16 Masc</option>
+                                    <option value="Sub 18 Masc">Sub 18 Masc</option>
+                                    <option value="Sub 21 Masc">Sub 21 Masc</option>
+                                    <option value="Mayores Fem">Mayores Fem</option>
+                                    <option value="Mayores Masc">Mayores Masc</option>
+                                    </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Equipo Local</label>
+                                <input type="text" id="partido-local" class="form-control" placeholder="Atalaya" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Equipo Visitante</label>
+                                <input type="text" id="partido-visitante" class="form-control" placeholder="Rival" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Marcador (Si ya jugó)</label>
+                                <input type="text" id="partido-score" class="form-control" placeholder="Ej: 3 - 0">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Fecha y Hora Real (Para cuenta regresiva)</label>
+                                <input type="datetime-local" id="partido-datetime" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sede / Cancha</label>
+                                <input type="text" id="partido-cancha" class="form-control" placeholder="Cancha Atalaya" required>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-success w-100">PUBLICAR</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-container shadow-sm p-3 bg-white rounded">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Local</th>
+                                    <th>VS</th>
+                                    <th>Visitante</th>
+                                    <th>Info</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-carrusel">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, doc, deleteDoc, setDoc, getDoc, addDoc} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxOLazfo6owST3A5QPbAm2w9VbhvWR5MQ",
+            authDomain: "atalaya-voley.firebaseapp.com",
+            projectId: "atalaya-voley",
+            storageBucket: "atalaya-voley.firebasestorage.app",
+            messagingSenderId: "493040370811",
+            appId: "1:493040370811:web:c6dda7f25fb98729290ede",
+            measurementId: "G-YSJCSELJR4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Seguridad
+        onAuthStateChanged(auth, (user) => {
+            if (!user) window.location.href = "login.html";
+        });
+
+        // Navegación
+       // REEMPLAZÁ TU verSeccion ACTUAL POR ESTA:
+            window.verSeccion = (id, btn) => {
+                document.querySelectorAll('.admin-section').forEach(sec => sec.style.display = 'none');
+                document.getElementById(id).style.display = 'block';
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                if (btn) btn.classList.add('active');
+            };
+
+        // --- LÓGICA DE INSCRIPTOS ---
+        const tabla = document.getElementById('tabla-inscritos');
+        onSnapshot(collection(db, "inscripciones"), (querySnapshot) => {
+            tabla.innerHTML = ''; 
+            querySnapshot.forEach((documento) => {
+                const data = documento.data();
+                const id = documento.id;
+                tabla.innerHTML += `
+                    <tr>
+                        <td>${data.nombre}</td>
+                        <td>${data.edad}</td>
+                        <td>${data.altura} cm</td>
+                        <td>${data.genero}</td>
+                        <td>${data.posicion}</td>
+                        <td><a href="https://wa.me/${data.telefono}" target="_blank" class="text-success">${data.telefono}</a></td>
+                        <td><button class="btn btn-danger btn-sm" onclick="eliminarInscrito('${id}')">Borrar</button></td>
+                    </tr>`;
+            });
+        });
+
+        // --- LÓGICA DE HORARIOS EDITABLES (LA MAGIA) ---
+        const statusLabel = document.getElementById('save-status');
+
+        // 1. Cargar datos iniciales en la tabla
+        onSnapshot(collection(db, "horarios"), (querySnapshot) => {
+            querySnapshot.forEach((docSnap) => {
+                const categoria = docSnap.id;
+                const horarios = docSnap.data();
+                const fila = document.querySelector(`tr[data-category="${categoria}"]`);
+                
+                if (fila) {
+                    Object.keys(horarios).forEach(dia => {
+                        const celda = fila.querySelector(`td[data-day="${dia}"]`);
+                        if (celda && document.activeElement !== celda) {
+                            celda.innerText = horarios[dia];
+                        }
+                    });
+                }
+            });
+        });
+
+        // 2. Guardar automáticamente al terminar de editar
+        document.querySelectorAll('.editable-cell').forEach(celda => {
+            celda.addEventListener('blur', async (e) => {
+                const nuevoTexto = e.target.innerText.trim();
+                const dia = e.target.getAttribute('data-day');
+                const categoria = e.target.parentElement.getAttribute('data-category');
+
+                statusLabel.style.display = 'inline';
+                try {
+                    await setDoc(doc(db, "horarios", categoria), {
+                        [dia]: nuevoTexto
+                    }, { merge: true });
+                    statusLabel.innerText = "✓ Guardado";
+                    setTimeout(() => statusLabel.style.display = 'none', 2000);
+                } catch (error) {
+                    console.error("Error al guardar:", error);
+                    alert("Error al guardar el cambio.");
+                }
+            });
+
+            // Guardar al presionar Enter y quitar el foco
+            celda.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    celda.blur();
+                }
+            });
+        });
+
+        window.cerrarSesion = () => signOut(auth).then(() => window.location.href = "login.html");
+        window.eliminarInscrito = async (id) => {
+            if(confirm("¿Borrar permanentemente?")) await deleteDoc(doc(db, "inscripciones", id));
+        };
+
+ // --- LÓGICA DEL CARRUSEL EN ADMIN ---
+const formCarrusel = document.getElementById('form-carrusel');
+const tablaCarrusel = document.getElementById('tabla-carrusel');
+
+formCarrusel.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const datetimeValue = document.getElementById('partido-datetime').value;
+    let fechaFormateada = "Fecha TBD";
+    let horaFormateada = "--:--";
+
+    if (datetimeValue) {
+        const fechaObj = new Date(datetimeValue);
+        fechaFormateada = fechaObj.toLocaleDateString('es-AR'); 
+        
+        // Formato limpio: 01:00 PM o 13:00 PM sin puntos extra
+        horaFormateada = fechaObj.toLocaleTimeString('en-US', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: true 
+        }).toUpperCase(); 
+    }
+
+    const nuevoPartido = {
+        tipo: document.getElementById('partido-tipo').value,
+        torneo: document.getElementById('partido-torneo').value,
+        fase: document.getElementById('partido-fase').value,
+        categoria: document.getElementById('partido-categoria').value,
+        local: document.getElementById('partido-local').value,
+        visitante: document.getElementById('partido-visitante').value,
+        score: document.getElementById('partido-score').value || "VS",
+        datetime: datetimeValue || "", // Evita que el countdown reciba null
+        fecha: fechaFormateada,
+        hora: horaFormateada,
+        cancha: document.getElementById('partido-cancha').value || "Sede a confirmar",
+        timestamp: Date.now()
+    };
+
+    try {
+        await addDoc(collection(db, "carrusel"), nuevoPartido);
+        formCarrusel.reset();
+        alert("¡Partido publicado correctamente!");
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error al publicar.");
+    }
+});
+
+// Listener de tabla (se mantiene igual, funciona bien)
+onSnapshot(collection(db, "carrusel"), (querySnapshot) => {
+    if (!tablaCarrusel) return;
+    tablaCarrusel.innerHTML = '';
+    querySnapshot.forEach((documento) => {
+        const p = documento.data();
+        const id = documento.id;
+        tablaCarrusel.innerHTML += `
+            <tr>
+                <td><span class="badge ${p.tipo === 'ÚLTIMO RESULTADO' ? 'bg-success' : 'bg-primary'}">${p.tipo}</span></td>
+                <td>${p.local}</td>
+                <td class="fw-bold">${p.score}</td>
+                <td>${p.visitante}</td>
+                <td><small>${p.fecha}<br>${p.hora}</small></td>
+                <td class="text-center">
+                    <button class="btn btn-danger btn-sm" onclick="eliminarPartido('${id}')">Eliminar</button>
+                </td>
+            </tr>`;
+    });
+});      
+
+// Función global para borrar placas
+window.eliminarPartido = async (id) => {
+    if(confirm("¿Eliminar esta placa del carrusel?")) {
+        try {
+            await deleteDoc(doc(db, "carrusel", id));
+        } catch (error) {
+            console.error("Error al eliminar:", error);
+        }
+    }
+};
+    </script>
+</body>
+</html>

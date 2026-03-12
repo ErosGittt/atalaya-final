@@ -1,0 +1,253 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+body {
+    background-color: #f4f7f6; /* Gris muy claro de fondo para resaltar las secciones */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+h1, h2 {
+    font-weight: 700;
+    color: #222;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+h1 em, h2 em {
+    font-style: normal;
+    color: #2e7d32; /* Verde Atalaya */
+}
+
+/* --- NAVBAR PERSONALIZADA --- */
+.navbar {
+    border-bottom: 3px solid #2e7d32;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    transition: all 0.3s ease;
+    margin: 0 5px;
+}
+
+.nav-link:hover {
+    color: #2e7d32 !important;
+}
+
+/* --- SECCIONES --- */
+.admin-section {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- TARJETAS Y CONTENEDORES --- */
+.table-container, .form-container {
+    background: #ffffff;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+}
+
+/* --- TABLA DE INSCRIPTOS --- */
+.table thead th {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding: 15px;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 12px 15px;
+    border-color: #f0f0f0;
+}
+
+.wa-link {
+    color: #25d366; /* Verde WhatsApp */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.wa-link:hover {
+    text-decoration: underline;
+    color: #128c7e;
+}
+
+/* --- BOTONES --- */
+.btn-success {
+    background-color: #2e7d32;
+    border: none;
+    font-weight: 600;
+    padding: 10px 20px;
+}
+
+.btn-success:hover {
+    background-color: #1b5e20;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: #a71d2a;
+    transform: scale(1.05);
+}
+
+/* --- FORMULARIOS --- */
+label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+}
+
+
+
+
+/* Ajuste para que los botones de acción se vayan a la derecha */
+.navbar-collapse {
+    justify-content: space-between;
+}
+
+.d-flex.align-items-center {
+    margin-left: auto; /* Empuje extra hacia la derecha */
+}
+
+/* Espaciado para que no se peguen los botones entre sí */
+.btn-outline-light {
+    margin-right: 10px;
+}
+
+/* Estilos específicos para el Carrusel */
+#form-carrusel .form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.badge-tipo {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.bg-resultado { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+.bg-proximo { background-color: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
+
+.btn-sm-delete {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+}
+
+#tabla-inscritos tr {
+    transition: background-color 0.2s;
+}
+
+#tabla-inscritos tr:hover {
+    background-color: rgba(46, 125, 50, 0.05); /* Un verde muy sutil al pasar el mouse */
+}
+
+/* --- RESPONSIVE PANEL ADMIN (REDISEÑO TOTAL) --- */
+@media (max-width: 768px) {
+    /* 1. Ajuste de Títulos y Espaciado */
+    h1, h2 { font-size: 1.5rem; text-align: center; }
+    .container { padding: 10px; }
+
+    /* 2. Transformar Tablas en Tarjetas (Cards) */
+    .table thead {
+        display: none; /* Escondemos los encabezados que confunden */
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        padding: 10px;
+    }
+
+    .table td {
+        text-align: right; /* El dato a la derecha */
+        padding: 8px 10px;
+        border: none;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between; /* Etiqueta a la izq, dato a la der */
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    /* Inyectamos títulos para que sepas qué es cada dato */
+    /* Para la tabla de partidos/carrusel */
+    #lista-partidos-carrusel td:nth-of-type(1):before { content: "Torneo:"; font-weight: 700; color: #666; }
+    #lista-partidos-carrusel td:nth-of-type(2):before { content: "Equipos:"; font-weight: 700; color: #666; }
+    #lista-partidos-carrusel td:nth-of-type(3):before { content: "Estado:"; font-weight: 700; color: #666; }
+    #lista-partidos-carrusel td:nth-of-type(4):before { content: "Acciones:"; font-weight: 700; color: #666; }
+
+    /* Para la tabla de inscriptos */
+    #tabla-inscritos td:nth-of-type(1):before { content: "Nombre:"; font-weight: 700; color: #666; }
+    #tabla-inscritos td:nth-of-type(2):before { content: "DNI/Cat:"; font-weight: 700; color: #666; }
+    #tabla-inscritos td:nth-of-type(3):before { content: "WhatsApp:"; font-weight: 700; color: #666; }
+    #tabla-inscritos td:nth-of-type(4):before { content: "Acción:"; font-weight: 700; color: #666; }
+
+    .table td:last-child {
+        border-bottom: none;
+        justify-content: center;
+        padding-top: 15px;
+    }
+
+    /* 3. Botones más fáciles de tocar con el dedo */
+    .btn-sm-delete, .btn-delete {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .wa-link {
+        background: #25d366;
+        color: white !important;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+    }
+
+    /* 4. Formulario de carga */
+    .form-container {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+}
