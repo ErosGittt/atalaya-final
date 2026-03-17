@@ -60,6 +60,10 @@
                 <li class="nav-item">
                     <a class="nav-link" onclick="verSeccion('sec-carrusel', this)">Carrusel</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="verSeccion('sec-aranceles', this)">Aranceles</a>
+                </li>
+                
             </ul>
             
             <div class="d-flex align-items-center">
@@ -109,7 +113,7 @@
         <section id="sec-horarios" class="admin-section" style="display: none;">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Editar <em>Horarios Directamente</em> <span id="save-status" class="saving-loader">Guardando...</span></h2>
+                    <h2>Editar <em>Horarios</em> <span id="save-status" class="saving-loader">Guardando...</span></h2>
                     <p>Haz clic en cualquier celda para escribir el nuevo horario. Se guarda automáticamente al salir de la celda.</p>
                     <hr>
                 </div>
@@ -268,13 +272,98 @@
             </div>
 
         </section>
+
+        <section id="sec-aranceles" class="admin-section" style="display:none;">
+            <div class="container mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Gestión de <em>Aranceles</em></h2>
+                    <span id="save-status-aranceles" class="badge bg-success" style="display:none;">✓ Guardado</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card bg-dark text-white p-4 mb-4">
+                            <h5><i class="fa fa-cog me-2"></i>Información General</h5>
+                            <hr>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Temporada (Año)</label>
+                                    <input type="text" id="ara-temporada" class="form-control" placeholder="Ej: 2026" onblur="guardarArancelesGral()">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Vigencia</label>
+                                    <input type="text" id="ara-vigencia" class="form-control" placeholder="Ej: Enero - Junio" onblur="guardarArancelesGral()">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Valor Cuota Social ($)</label>
+                                    <input type="text" id="ara-cuota-social" class="form-control" placeholder="Ej: 5000" onblur="guardarArancelesGral()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-dark text-white p-4">
+                            <div class="d-flex justify-content-between">
+                                <h5><i class="fa fa-money me-2"></i>Precios por Frecuencia</h5>
+                                <button class="btn btn-sm btn-outline-success" onclick="abrirModalPrecio()">+ Nuevo</button>
+                            </div>
+                            <hr>
+                            <div id="lista-precios-admin" class="list-group list-group-flush">
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card bg-dark text-white p-4 mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h5><i class="fa fa-star me-2"></i>Beneficios Socio</h5>
+                                <button class="btn btn-sm btn-outline-success" onclick="agregarItem('beneficios', 'Nuevo beneficio...')">+ Añadir</button>
+                            </div>
+                            <hr>
+                            <div id="lista-beneficios-admin" class="list-group">
+                                </div>
+                        </div>
+
+                        <div class="card bg-dark text-white p-4">
+                            <div class="d-flex justify-content-between">
+                                <h5><i class="fa fa-credit-card me-2"></i>Medios de Pago</h5>
+                                <button class="btn btn-sm btn-outline-success" onclick="agregarItem('pagos', 'Nuevo método...')">+ Añadir</button>
+                            </div>
+                            <hr>
+                            <div id="lista-pagos-admin" class="list-group">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal fade" id="modalPrecio" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-white">
+                    <div class="modal-header"><h5>Nuevo Item de Precio</h5></div>
+                    <div class="modal-body">
+                        <input type="text" id="new-precio-label" class="form-control mb-2" placeholder="Ej: 2 veces por semana">
+                        <input type="text" id="new-precio-valor" class="form-control" placeholder="Ej: 15000">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button class="btn btn-success" onclick="confirmarNuevoPrecio()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, onSnapshot, doc, deleteDoc, setDoc, getDoc, addDoc} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         
+
+
         const firebaseConfig = {
             apiKey: "AIzaSyAxOLazfo6owST3A5QPbAm2w9VbhvWR5MQ",
             authDomain: "atalaya-voley.firebaseapp.com",
@@ -288,6 +377,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        
 
         // Seguridad
         onAuthStateChanged(auth, (user) => {
@@ -318,7 +408,7 @@
                         <td>${data.genero}</td>
                         <td>${data.posicion}</td>
                         <td><a href="https://wa.me/${data.telefono}" target="_blank" class="text-success">${data.telefono}</a></td>
-                        <td><button class="btn btn-danger btn-sm" onclick="eliminarInscrito('${id}')">Borrar</button></td>
+                        <td><button class="btn btn-danger btn-sm" onclick="eliminarInscrito('${id}')">X</button></td>
                     </tr>`;
             });
         });
@@ -441,7 +531,7 @@ onSnapshot(collection(db, "carrusel"), (querySnapshot) => {
                 <td>${p.visitante}</td>
                 <td><small>${p.fecha}<br>${p.hora}</small></td>
                 <td class="text-center">
-                    <button class="btn btn-danger btn-sm" onclick="eliminarPartido('${id}')">Eliminar</button>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarPartido('${id}')">X</button>
                 </td>
             </tr>`;
     });
@@ -473,6 +563,113 @@ document.getElementById('inputBusqueda').addEventListener('keyup', function() {
         }
     });
 });
+
+// --- LÓGICA DE ARANCELES (ADMIN) ---
+const araStatus = document.getElementById('save-status-aranceles');
+
+// 1. Cargar datos en tiempo real (Admin)
+onSnapshot(doc(db, "configuracion", "aranceles"), (docSnap) => {
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        
+        // General
+        if(document.activeElement.id !== 'ara-temporada') document.getElementById('ara-temporada').value = data.temporada || "";
+        if(document.activeElement.id !== 'ara-vigencia') document.getElementById('ara-vigencia').value = data.vigencia || "";
+        if(document.activeElement.id !== 'ara-cuota-social') document.getElementById('ara-cuota-social').value = data.cuotaSocial || "";
+
+        // Listas Dinámicas
+        renderizarListaEditable('lista-beneficios-admin', data.beneficios || [], 'beneficios');
+        renderizarListaEditable('lista-pagos-admin', data.pagos || [], 'pagos');
+        renderizarPreciosAdmin(data.precios || []);
+    }
+});
+
+// Guardar campos simples
+window.guardarArancelesGral = async () => {
+    araStatus.style.display = 'inline';
+    await setDoc(doc(db, "configuracion", "aranceles"), {
+        temporada: document.getElementById('ara-temporada').value,
+        vigencia: document.getElementById('ara-vigencia').value,
+        cuotaSocial: document.getElementById('ara-cuota-social').value
+    }, { merge: true });
+    setTimeout(() => araStatus.style.display = 'none', 1500);
+};
+
+// Renderizar listas (Beneficios / Pagos)
+function renderizarListaEditable(containerId, array, field) {
+    const cont = document.getElementById(containerId);
+    cont.innerHTML = array.map((item, index) => `
+        <div class="input-group mb-2">
+            <input type="text" class="form-control" value="${item}" 
+                onblur="editarItemArray('${field}', ${index}, this.value)">
+            <button class="btn btn-outline-danger" onclick="eliminarItemArray('${field}', ${index})">
+                X
+            </button>
+        </div>
+    `).join('');
+}
+
+// Renderizar Precios
+function renderizarPreciosAdmin(precios) {
+    const cont = document.getElementById('lista-precios-admin');
+    cont.innerHTML = precios.map((p, index) => `
+        <div class="d-flex justify-content-between align-items-center bg-secondary p-2 rounded mb-2">
+            <span>${p.label}: <strong>$${p.valor}</strong></span>
+            <button class="btn btn-danger btn-sm" onclick="eliminarPrecio(${index})">X</button>
+        </div>
+    `).join('');
+}
+
+// Operaciones de Array
+window.agregarItem = async (field, placeholder) => {
+    const docRef = doc(db, "configuracion", "aranceles");
+    const docSnap = await getDoc(docRef);
+    let array = docSnap.exists() ? (docSnap.data()[field] || []) : [];
+    array.push(placeholder);
+    await setDoc(docRef, { [field]: array }, { merge: true });
+};
+
+window.editarItemArray = async (field, index, value) => {
+    const docRef = doc(db, "configuracion", "aranceles");
+    const docSnap = await getDoc(docRef);
+    let array = docSnap.data()[field];
+    array[index] = value;
+    await setDoc(docRef, { [field]: array }, { merge: true });
+};
+
+window.eliminarItemArray = async (field, index) => {
+    const docRef = doc(db, "configuracion", "aranceles");
+    const docSnap = await getDoc(docRef);
+    let array = docSnap.data()[field];
+    array.splice(index, 1);
+    await setDoc(docRef, { [field]: array }, { merge: true });
+};
+
+// Lógica de Modal Precios
+const modalPrecio = new bootstrap.Modal(document.getElementById('modalPrecio'));
+window.abrirModalPrecio = () => modalPrecio.show();
+
+window.confirmarNuevoPrecio = async () => {
+    const label = document.getElementById('new-precio-label').value;
+    const valor = document.getElementById('new-precio-valor').value;
+    const docRef = doc(db, "configuracion", "aranceles");
+    const docSnap = await getDoc(docRef);
+    let precios = docSnap.exists() ? (docSnap.data().precios || []) : [];
+    precios.push({ label, valor });
+    await setDoc(docRef, { precios }, { merge: true });
+    modalPrecio.hide();
+};
+
+window.eliminarPrecio = async (index) => {
+    const docRef = doc(db, "configuracion", "aranceles");
+    const docSnap = await getDoc(docRef);
+    let precios = docSnap.data().precios;
+    precios.splice(index, 1);
+    await setDoc(docRef, { precios }, { merge: true });
+};
+
+
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

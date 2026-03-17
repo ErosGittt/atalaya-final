@@ -415,3 +415,107 @@ label {
         border-radius: 12px;
     }
 }
+
+/* ==========================================
+   10. SECCIÓN ADMIN - GESTIÓN DE ARANCELES (FIX TOTAL)
+   ========================================== */
+
+#sec-aranceles {
+    padding: 30px;
+    background-color: white; /* Fondo más profundo */
+    min-height: 100vh;
+    color: black;
+}
+
+/* Tarjetas */
+#sec-aranceles .card {
+    background-color: white !important;
+    border: 1px solid #333 !important;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Títulos internos de las cards */
+#sec-aranceles h5 {
+    color: #4caf50 !important; /* Verde brillante para visibilidad */
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* Inputs y Form-controls */
+#sec-aranceles .form-control {
+    background-color: white !important;
+    border: 1px solid #444 !important;
+    color: black !important;
+    font-weight: 500;
+}
+
+#sec-aranceles .form-control:focus {
+    border-color: #4caf50 !important;
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+
+/* --- FIX BOTONES DE BORRAR (LA X) --- */
+/* Botón para Precios por frecuencia */
+.btn-danger.btn-sm {
+    background-color: #ff4d4d !important;
+    border: none !important;
+    color: white !important;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Botón para Beneficios y Pagos (Input Groups) */
+#sec-aranceles .input-group .btn-outline-danger {
+    background-color: #ff4d4d !important;
+    color: white !important;
+    border: none !important;
+    padding: 0 15px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- FIX FILAS DE PRECIOS --- */
+#lista-precios-admin .bg-secondary {
+    background-color: white !important;
+    border: 1px solid #444 !important;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    padding: 15px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+#lista-precios-admin span {
+    color: black !important;
+    font-size: 1rem;
+}
+
+#lista-precios-admin strong {
+    color: #4caf50 !important;
+}
+
+/* Botón Añadir/Nuevo */
+.btn-outline-success {
+    color: #4caf50 !important;
+    border-color: #4caf50 !important;
+    font-weight: 600;
+}
+
+.btn-outline-success:hover {
+    background-color: #4caf50 !important;
+    color: #000 !important;
+}

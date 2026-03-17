@@ -747,6 +747,26 @@ banner
     z-index: 10;
     margin: 0 auto !important;
     padding: 0 !important;
+
+    
+    
+}
+
+/* Estilo del texto de carga */
+.loading-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    font-size: 1.2rem;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Evita que la frase salte */
+.frase-atalaya {
+    margin-bottom: 30px;
+    transition: opacity 0.5s ease;
 }
 
 .card-resultado {
@@ -926,7 +946,7 @@ banner
 @media (max-width: 768px) {
     /* Ajuste Punto 1: Achicamos el contenedor y damos aire al banner */
     .carousel-container-banner { 
-        margin-top: 100px !important; /* Menos margen superior para que no baje tanto */
+        margin-top: 20px !important; /* Menos margen superior para que no baje tanto */
         max-width: 92% !important;  /* La placa no ocupa todo el ancho, respira a los costados */
     }
 
@@ -1371,6 +1391,277 @@ schedule (REPARADO)
     background-attachment: scroll !important; /* Evita tirones en móviles */
     padding: 60px 0 !important;
 }
+}
+
+
+/* ==========================================
+   10. SECCIÓN ARANCELES - ESTILO UNIFICADO
+   ========================================== */
+
+/* --- Contenedor de Sección --- */
+#aranceles {
+    padding-top: 10px;
+    padding-bottom: 60px;
+    background-color: #f7f7f7;
+}
+
+/* --- Encabezado de Sección --- */
+.heading-aranceles {
+    margin-bottom: 50px !important;
+}
+
+.heading-aranceles h2 {
+    font-size: 38px !important;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #232d39;
+    letter-spacing: 1px;
+}
+
+.heading-aranceles h2 em {
+    font-style: normal;
+    color: #2e7d32;
+}
+
+.heading-aranceles img {
+    margin: 15px auto !important;
+    display: block;
+    width: 60px;
+}
+
+.heading-aranceles .p_largo {
+    font-size: 16px;
+    color: #7a7a7a;
+    max-width: 600px;
+    margin: 20px auto 0 auto;
+    line-height: 1.6;
+}
+
+/* --- Tarjeta Base Unificada (Compartida por Central y Laterales) --- */
+.arancel-box-index {
+    background: white; /* Mismo fondo oscuro para todas */
+    border-radius: 20px;
+    padding: 40px; /* Mayor padding general */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 100%; /* Obliga a llenar la altura de la columna */
+    display: flex; /* Para centrar contenido verticalmente */
+    flex-direction: column;
+    justify-content: center;
+}
+
+.arancel-box-index:hover {
+    transform: translateY(-5px);
+    border-color: #2e7d32;
+}
+
+/* --- Elementos Internos Tarjeta Central --- */
+.arancel-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.arancel-content h4 {
+    color: #2e7d32;
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.sub-periodo {
+    color: black;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 30px;
+    display: block;
+    font-style: italic;
+}
+
+.escudo-container {
+    text-align: center;
+    margin: 10px 0 25px 0;
+}
+
+.escudo-card {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 0 8px rgba(46, 125, 50, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.arancel-box-index:hover .escudo-card {
+    transform: scale(1.1);
+}
+
+/* --- Listado de Precios --- */
+.price-list {
+    margin-bottom: 30px;
+    flex-grow: 1; /* Empuja el botón hacia abajo para igualar altura central */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+}
+
+.price-item span:first-child {
+    color: black;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.price-value {
+    color: #28a745;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Item Resaltado (Cuota Social) */
+.highlight-item span:first-child {
+    color: #2e7d32 !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.highlight-item .price-value {
+    color: #2e7d32;
+    font-size: 1.4rem;
+}
+
+/* --- Tarjetas Laterales Especificas Unificadas --- */
+.lateral-card {
+    background: white !important; /* Ligeramente diferente para contraste sutil */
+}
+
+/* Centrado vertical de contenido lateral */
+.centered-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tit-lateral {
+    color: black;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 2px solid #2e7d32;
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+/* Estilos para Medios de Pago */
+.pago-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+}
+
+.img-pago {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-right: 20px;
+}
+
+.pago-item span {
+    font-weight: 600;
+    color: black;
+    font-size: 1rem;
+}
+
+.nota-pago {
+    font-size: 12px;
+    color: #181717;
+    margin-top: 25px;
+    font-style: italic;
+    text-align: center;
+}
+
+/* Estilos para Beneficios */
+.lista-beneficios {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 280px;
+}
+
+.lista-beneficios li {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: black;
+    display: flex;
+    align-items: center;
+}
+
+.lista-beneficios li i {
+    color: #2e7d32;
+    margin-right: 15px;
+    font-size: 1.2rem;
+}
+
+/* --- Botón de Acción --- */
+.arancel-box-index .main-button {
+    text-align: center;
+    margin-top: auto; /* Empuja el botón al fondo si hay espacio */
+}
+
+.arancel-box-index .main-button a {
+    display: inline-block;
+    width: 100%;
+    background-color: #2e7d32 !important;
+    color: white !important;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.arancel-box-index .main-button a:hover {
+    background-color: #1b5e20 !important;
+    box-shadow: 0 5px 15px rgba(46, 125, 50, 0.4);
+    transform: scale(1.02);
+}
+
+/* --- Ajustes Responsive --- */
+@media (max-width: 991px) {
+    .arancel-box-index {
+        margin-bottom: 20px;
+        height: auto; /* Desactiva altura igual en mobile */
+    }
+}
+
+@media (max-width: 767px) {
+    .arancel-box-index {
+        padding: 30px;
+    }
+    .heading-aranceles h2 {
+        font-size: 28px !important;
+    }
+    .price-value {
+        font-size: 1.1rem;
+    }
 }
 
 
